@@ -9,11 +9,26 @@ switch ($action) {
     break;
 
   case 'logout':
-    // code...
+    if (isset($_SESSION['userId'])) {
+      unset($_SESSION['userId']);
+    }
+    header('Location: ?action=display');
     break;
 
   case 'login':
-    // code...
+    include "../models/UserManager.php";
+    if (isset($_POST['username']) && isset($_POST['password'])) {
+      $userId = GetUserIdFromUserAndPassword($_POST['username'], $_POST['password']);
+      if ($userId > 0) {
+        $_SESSION['userId'] = $userId;
+        header('Location: ?action=display');
+      } else {
+        $errorMsg = "Wrong login and/or password.";
+        include "../views/LoginForm.php";
+      }
+    } else {
+      include "../views/LoginForm.php";
+    }
     break;
 
   case 'newMsg':
@@ -27,6 +42,7 @@ switch ($action) {
   case 'display':
   default:
     include "../models/PostManager.php";
+
     if (isset($_GET['search'])) {
       $posts = SearchInPosts($_GET['search']);
     } else {
@@ -34,16 +50,13 @@ switch ($action) {
     }
 
     include "../models/CommentManager.php";
-
-    // ===================HARDCODED PART===========================
-    // format idPost => array of comments
+    $comments = array();
 
     foreach ($posts as $onePost) {
       $idPost = $onePost['id'];
       $commentsForThisPost = GetAllCommentsFromPostId($idPost);
       $comments[$idPost] = $commentsForThisPost;
     }
-    // =============================================================
 
     include "../views/DisplayPosts.php";
     break;
