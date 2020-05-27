@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Social Network (PHP Course))</title>
+  <title>Social Network (PHP Course)</title>
   <meta charset="UTF-8">
   <link rel="icon" type="image/png" href="img/icon.png">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -22,6 +22,7 @@
       <img src="img/icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
       Tiny Social Network
     </a>
+    <?php echo "Hello " . $_SESSION['userId']; ?>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
