@@ -105,6 +105,22 @@
                 <p><?= htmlspecialchars($onePost['content']); ?></p>
               </div>
               <div class="post-footer">
+                <!-- ADD COMMENT -->
+                <?php
+                if (isset($_SESSION['userId'])) {
+                ?>
+                  <div class="input-group">
+                    <form class="input-group" method="POST" action="?action=newComment">
+                      <input name="postId" type="hidden" value="<?= $onePost['id'] ?>">
+                      <input name="comment" class="form-control" placeholder="Add a comment" type="text">
+                      <span class="input-group-text">
+                        <a href="#" onclick="$(this).closest('form').submit()"><i class="fa fa-edit"></i></a>
+                      </span>
+                    </form>
+                  </div>
+                <?php
+                }
+                ?>
                 <ul class="comments-list">
                   <?php
                   $postId = $onePost['id'];
