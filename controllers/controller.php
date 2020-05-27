@@ -16,11 +16,17 @@ switch ($action) {
     break;
 
   case 'login':
+
     include "../models/UserManager.php";
-    if (isset($_POST['username']) && isset($_POST['password'])) {
+
+    $authentication = isset($_POST['username']) && isset($_POST['password']);
+
+    if ($authentication) {
       $userId = GetUserIdFromUserAndPassword($_POST['username'], $_POST['password']);
+
       if ($userId > 0) {
         $_SESSION['userId'] = $userId;
+        $_SESSION['nickname'] = $_POST['username'];
         header('Location: ?action=display');
       } else {
         $errorMsg = "Wrong login and/or password.";
